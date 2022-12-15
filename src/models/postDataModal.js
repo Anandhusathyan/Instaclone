@@ -4,11 +4,11 @@ const postSchema = new mongoose.Schema({
     name: { type: String },
     location: { type: String },
     description: { type: String },
-    postImage: {required:true},
-    date: { type: Date, default: Date.now },
+    imageName: {type: String},
+    date: { type: Date },
 })
 
-const PostModel = mongoose.model('postsCollect',blogSchema);
+const PostModel = mongoose.model('postsCollect',postSchema);
 PostModel.createCollection();
 
 module.exports = PostModel;

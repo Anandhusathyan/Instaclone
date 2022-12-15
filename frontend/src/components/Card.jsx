@@ -5,7 +5,7 @@ import share from '../images/share.jpg'
 
 
 const Card = (prop) => {
-    // console.log(prop.pass);
+    console.log('../local_folder/files/' + prop.pass.imageName);
     return (
         <>
             <div className="container">
@@ -19,7 +19,11 @@ const Card = (prop) => {
                     <img src={more} style={{width: '5px', height:'5px' }} alt="options" />
                 </div> 
                 <div className="image">
-                    <img src={prop.pass.PostImage} alt="asfs"></img>
+                    {/* <img src={prop.pass.imageName} alt="asfs"></img> */}
+                    {/* <img src={'../local_folder/files' + prop.pass.imageName} alt="asfs"></img> */}
+                    <img src={''} alt="asfs"></img>
+
+
                 </div>
                  <div className="row3">
                         <img src={heart} style={{width: '20px', height:'20px' }} alt="like" />
