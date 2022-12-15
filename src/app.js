@@ -5,8 +5,8 @@ const app = express()
 app.use(express.json());
 
 //Import all routes present in routes folder
-const postRoute = require('./routes/postDataRoute')
-app.use('/',postRoute)
+const Route = require('./routes/postDataRoute')
+app.use('/', Route)
 
 
 module.exports = app;

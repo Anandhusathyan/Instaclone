@@ -1,33 +1,49 @@
 import React , {useState}from 'react';
 import axios from 'axios';
-import '../styles/PostDataStyle.css'
+import '../styles/PostDataStyle.css';
+import {useNavigate} from 'react-router-dom';
+// import { useEffect } from 'react';
+
 
 const PostData = () => {
-    const [intialData, finalData] = useState({name:"", location:"", description:"", PostImage:"", data: new Date()})
-    // const [state,UpdateFileName] = useState('')
-    // function displayFile(e) {
-    //     console.log('x')
-    //     console.log(e.files)
-    //     UpdateFileName(e.srcElement.files[0].name)
-    // }
-    // console.log(intialData)
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        try{
-            // axios.post('http://localhost:3001/PostData',intialData, {
-            //     headers: {
-            //         'Content-type' : 'multipart/form-data',
-            //     },
-            // }).then(res => console.log(res)).catch(err => {
-            //     console.log(err,'s')})
-            // console.log(intialData)
-            await axios.post('http://localhost:3000/PostData',intialData).then(res => console.log(res)).catch(err => {
-                console.log(err,'s')})
-            console.log(intialData)
-        } catch(err) {
-            console.log(err);
+    const [imageData, final] = useState('')
+    const [name, finalauthor] = useState('')
+    const [location, finallocation] = useState('')
+    const [description, finaldesc] = useState('')
+    const [imageName, finalimageName] = useState('')
+
+
+
+    const navigate = useNavigate();
+    // useEffect(() => {
+        const handleSubmit = (e) =>{
+            console.log('x')
+            e.preventDefault();
+            try{
+                // axios.post('http://httpbin.org/post',intialData, {
+                    const data = new FormData();
+                    // data.append("intialData",JSON.stringify(intialData))
+                    data.append("imageData",imageData)
+                    data.append("name",name)
+                    data.append("location",location)
+                    data.append("imageName",imageName)
+
+                    data.append("description",description)
+
+                axios.post('http://localhost:3000/PostData',data)
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+                // axios.post('http://localhost:3000/PostData',intialData)
+                // .then(res => console.log(res))
+                // .catch(err => console.log(err))
+
+            } catch(err) {
+                console.log(err);
+            }
+            navigate('/PostView'); 
         }
-    }
+    // },[])
+
     return(
         <>
         <div className="container2">
@@ -37,48 +53,32 @@ const PostData = () => {
 {/* Also, in the form tag, we have specified the action attribute to #. This is because we haven’t made any API endpoint to receive the data from this form. we will create that in backend */}
                 <div>
                     <input type="text" placeholder='No file choosen' />
-                    {/* <p className="displayArea" placeholder='No file choosen'></p> */}
-                    {/* <button><label htmlFor="postData" >choose file</label></button> */}
-                    {/* <input type="file" id="postData" name="PostedData" onChange={(e) => displayFile(e)} accept=".png, .jpg, .jpeg" style={{display:'none'}}/> */}
-                    {/* <input type="file" id="postData" name="PostedData" onChange={(e) => console.log(e.target.files[0].name)} accept=".png, .jpg, .jpeg"/> */}
-                    <input type="file" id="postData" name="PostedData"  onChange={(e) => finalData({...intialData, PostImage: e.target.files[0].name})} accept=".png, .jpg, .jpeg" />
+                    <input type="file" id="postData"  onChange={e => { 
+                        // finalData({...intialData, imageName: e.target.files[0].name},
+                        // finalData({...intialData, e.target.files[0]},
+                        finalimageName(e.target.files[0].name)
+                        final(e.target.files[0])
+                        } }
+                            accept=".png, .jpg, .jpeg" />
                 </div>
         <div>
-            <input type="text" placeholder="Author" onChange={(e) => finalData({...intialData, name: e.target.value})} />
+            <input type="text" placeholder="Author" onChange={(e) => finalauthor(e.target.value)} />
         </div>
         <div>
-            <input type="text" placeholder="Location" onChange={(e) => finalData({...intialData, location: e.target.value})}/>
+            <input type="text" placeholder="Location" onChange={(e) => finallocation(e.target.value)}/>
         </div>
         <div>
-        <input type="text" placeholder="Description" onChange={(e) => finalData({...intialData, description: e.target.value})} />
+        <input type="text" placeholder="Description" onChange={(e) => finaldesc( e.target.value)} />
 
         </div>
-        <button type="submit">Post</button>
+        {/* <Link to='/PostView'><button type="submit"  >Post</button></Link> */}
+        <button type="submit" >Post</button>
+        
             </form>
         </div>
         </>
     )
 }
 
-// let handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       let res = await fetch("https://httpbin.org/post", {
-//         method: "POST",
-//         body: JSON.stringify(data),
-//       });
-//       let resJson = await res.json();
-//       if (res.status === 200) {
-//         setName("");
-//         setEmail("");
-//         setMessage("User created successfully");
-//       } else {
-//         setMessage("Some error occ
-// else {
-//         setMessage("Some error occured");
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+
 export default PostData;

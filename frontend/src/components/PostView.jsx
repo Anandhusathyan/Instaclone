@@ -2,18 +2,30 @@ import React, { useEffect, useState } from 'react';
 import icon from '../images/icon.jpg'
 import camera from '../images/camera.jpg'
 import Card from './Card';
-import '../styles/PostViewStyle.css'
+import '../styles/PostViewStyle.css';
+import axios from 'axios';
+
 import {Link} from 'react-router-dom';
 
 const PostView = () => {
     const [state, updateState] = useState([]);
 
-    useEffect(() => {
+    useEffect( () => {
         // fetch("backend get server")
-        fetch('./data.json')
-            .then(res => res.json())
-            .then(data => updateState(data.user))
+        // fetch('./data.json')
+        //     .then(res => res.json())
+        //     .then(data => updateState(data.user))
+        //     .catch(err => console.log(err))
+        async function getData() {
+            await axios.get('http://localhost:3000/PostView')
+            .then(res =>{
+                console.log('y')
+                console.log(res.data);
+                updateState([...res.data])
+            } )
             .catch(err => console.log(err))
+        }
+        getData()
     }, []);
 
     return (
