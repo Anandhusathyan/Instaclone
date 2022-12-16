@@ -43,9 +43,10 @@
 .ptype1 {
     font-size: 0.8rem;
     font-weight: bold;
+    margin-bottom: 0;
 }
 .ptype2 {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: darkgrey;
 }
 .dot{
