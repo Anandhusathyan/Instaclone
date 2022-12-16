@@ -5,7 +5,8 @@ import share from '../images/share.jpg'
 
 
 const Card = (prop) => {
-    console.log('../local_folder/files/' + prop.pass.imageName);
+    console.log(prop.pass.PostImage.data.data);
+    const img = btoa(String.fromCharCode(...new Uint8Array(prop.pass.PostImage.data.data)))
     return (
         <>
             <div className="container">
@@ -19,9 +20,8 @@ const Card = (prop) => {
                     <img src={more} style={{width: '5px', height:'5px' }} alt="options" />
                 </div> 
                 <div className="image">
-                    {/* <img src={prop.pass.imageName} alt="asfs"></img> */}
-                    {/* <img src={'../local_folder/files' + prop.pass.imageName} alt="asfs"></img> */}
-                    <img src={''} alt="asfs"></img>
+                    
+                    <img src={`data:image/png;base64,${img}`} alt="asfs"></img>
 
 
                 </div>

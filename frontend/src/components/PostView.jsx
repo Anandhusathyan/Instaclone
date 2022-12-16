@@ -11,17 +11,10 @@ const PostView = () => {
     const [state, updateState] = useState([]);
 
     useEffect( () => {
-        // fetch("backend get server")
-        // fetch('./data.json')
-        //     .then(res => res.json())
-        //     .then(data => updateState(data.user))
-        //     .catch(err => console.log(err))
         async function getData() {
             await axios.get('http://localhost:3000/PostView')
             .then(res =>{
-                console.log('y')
-                console.log(res.data);
-                updateState([...res.data])
+                updateState(res.data)
             } )
             .catch(err => console.log(err))
         }

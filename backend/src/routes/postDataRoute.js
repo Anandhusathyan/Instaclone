@@ -1,6 +1,7 @@
 const postRoute = require('express').Router()
 const PostModel = require('../models/postDataModal')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 postRoute.use(bodyParser.json())
 const cors = require("cors");
 postRoute.use(cors());
@@ -18,25 +19,37 @@ const upload = multer({storage:ownStorage})
 
 postRoute.get('/PostView', async (req,res) => {
     try{
-        // await PostModel.find((err,data) => {
-        //     (err) ? console.log(err) : res.json(data)
-        // })
+
         let found = await PostModel.find()
-        res.send(found)
+        res.json(found)
     } catch(err) {
         res.json({
             result : "failure"
         })
     }
 })
-postRoute.post('/PostData',upload.single("imageData"), async (req,res) => {
+postRoute.post('/PostData',upload.single("imageData1"), async (req,res) => {
     try{
-        console.log(req.body)
-        await PostModel.create(req.body)
+
+        let obj = {
+            name : req.body.author1,
+            description : req.body.description1,
+            location : req.body.location1,
+            PostImage : {
+                data: fs.readFileSync('local_folder/files/' + req.file.filename),
+                contentType: 'image/png'
+            } 
+        }
+
+        await PostModel.create(obj)
+        .then(res => console.log("successful"))
+        .catch(err => console.log(err))
+
+
         res.status(200).json({
             result : "success",
             frontEndMessage : req.body,
-            backEndMessage : req.files
+            backEndMessage : obj
         })
     } catch(err) {
         res.status(400).json({
