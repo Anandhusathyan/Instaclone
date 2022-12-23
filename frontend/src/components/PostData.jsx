@@ -22,19 +22,11 @@ const PostData = () => {
             e.preventDefault();
             try{
                 // axios.post('http://httpbin.org/post',intialData, {
-                // const data1 = [imageData,intialData]
                     const data = new FormData();
-                    // data.append("intialData",JSON.stringify(intialData))
-                    // data.append("intialData",intialData)
-
                     data.append("imageData1",imageData)
-                    // data.append("filename",imageData.name)
                     data.append("author1",author)
                     data.append("location1",location)
-                    // data.append("imageName",imageName)
-
                     data.append("description1",description)
-
                 axios.post('http://localhost:3000/PostData',data)
                 .then(res =>{
                     console.log(res)
@@ -50,8 +42,7 @@ const PostData = () => {
 
             } catch(err) {
                 console.log(err);
-            }
-             
+            }        
         }
   
 
