@@ -82,33 +82,5 @@ postRoute.post('/PostData',upload.single('imageData1'), async (req,res) => {
         })
     }
 })
-// postRoute.post('/PostData',upload.single("imageData1"), async (req,res) => {
-//     try{
 
-//         let obj = {
-//             name : req.body.author1,
-//             description : req.body.description1,
-//             location : req.body.location1,
-//             PostImage : {
-//                 data: fs.readFileSync('local_folder/files/' + req.file.filename),
-//                 contentType: 'image/png'
-//             }
-//         }
-
-//         await PostModel.create(obj)
-//         .then(res => console.log("successful"))
-//         .catch(err => console.log(err))
-
-//         res.status(200).json({
-//             result : "success",
-//             frontEndMessage : req.body,
-//             addedData : obj
-//         })
-//     } catch(err) {
-//         res.status(400).json({
-//             result : "failure",
-//             message: err.message
-//         })
-//     }
-// })
 module.exports = postRoute;
